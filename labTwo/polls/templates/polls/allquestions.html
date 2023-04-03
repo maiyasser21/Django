@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>All Questions:</h1>
+    <br />
+    {%for q in question%}
+    <a href="{%url 'question_details' q.id %}">
+      {{q.question_txt}} <br />
+    </a>
+    <form method="delete" action="/polls/delete/{{q.id}}">
+        <input type="submit" value="Delete"/>
+    </form>
+    {%endfor%}
+    {%if question.has_previous%}
+    <br /><br />
+    <a href="?page=1">&laquo; First</a>
+    <a href="?page={{question.previous_page_number}}">Previous</a>
+
+    {%endif%}
+    <br /><br />
+    Page {{question.number}} of {{question.paginator.num_pages}}
+    <br /><br />
+    {%if question.has_next%}
+
+    <a href="?page={{question.next_page_number}}">Next</a>
+    <a href="?page={{question.paginator.num_pages}}">Last &raquo;</a>
+    {%endif%}
+  </body>
+</html>
